@@ -52,35 +52,37 @@
     </div>
 </div>
 
-
-<div class="row my-4">
-    <div class="col-md-6 mx-auto">
-        <div class="card">
-            <div class="card-body">
-                <input (keyup)="searchClient()" [(ngModel)]="SearchText" placeholder="Recherche..." type="text" class="form-control mt-3 mb-3">
-                <ul class="list-group">
-                    <li *ngFor="let client of resultClients"
-                        class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-user fa-lg mr-2 ml-2"></i>
-                            <span class="ml-2">{{client.nom + ' ' + client.prenom}}</span>
-                        </div>
-                        <div>
-                            <button (click)="deleteClient(client.id)" class="btn btn-danger btn-sm mr-2"
-                                data-toggle="tooltip" data-placement="top" title="Supprimer">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <button (click)="editClient(client.id)" class="btn btn-primary btn-sm" data-toggle="tooltip"
-                                data-placement="top" title="Modifier">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button (click)="detailsClient(client.id)" class="btn btn-primary btn-sm"
-                                data-toggle="tooltip" data-placement="top" title="details">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+<div *ngIf="!btn">
+    <div class="row my-4">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <input (keyup)="searchClient()" [(ngModel)]="SearchText" placeholder="Recherche..." type="text"
+                        class="form-control mt-3 mb-3">
+                    <ul class="list-group">
+                        <li *ngFor="let client of resultClients"
+                            class="list-group-item d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-user fa-lg mr-2 ml-2"></i>
+                                <span class="ml-2">{{client.nom + ' ' + client.prenom}}</span>
+                            </div>
+                            <div>
+                                <button (click)="deleteClient(client.id)" class="btn btn-danger btn-sm mr-2"
+                                    data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button (click)="editClient(client.id)" class="btn btn-primary btn-sm"
+                                    data-toggle="tooltip" data-placement="top" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button (click)="detailsClient(client.id)" class="btn btn-primary btn-sm"
+                                    data-toggle="tooltip" data-placement="top" title="details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

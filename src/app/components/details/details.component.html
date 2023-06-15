@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Client Details</h1>
     <div class="text-right d-flex justify-content-end">
-        <button class="btn btn-dark btn-sm" (click)="displayModal(true)">
+        <button class="btn btn-dark btn-sm" (click)="displayForm(true)">
             <i class="fa fa-plus"></i>New HeartBeat
         </button>
     </div>
@@ -38,37 +38,31 @@
         </tbody>
     </table>
 
-    <div *ngIf="showModal">
+    <div *ngIf="showForm">
         <div class="row mt-4">
             <div class="col-md-6 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="data1">Data1</label>
-                            <input [(ngModel)]="hearbeat.data1" type="text" class="form-control" id="data1"
+                            <input [(ngModel)]="heartbeat.data1" type="text" class="form-control" id="data1"
                                 placeholder="Entrez Data1">
                         </div>
                         <div class="form-group">
                             <label for="data2">Data2</label>
-                            <input [(ngModel)]="hearbeat.data2" type="text" class="form-control" id="data2"
+                            <input [(ngModel)]="heartbeat.data2" type="text" class="form-control" id="data2"
                                 placeholder="Entrez data2">
                         </div>
                         <div class="form-group">
                             <label for="data3">Data3</label>
-                            <input [(ngModel)]="hearbeat.data3" type="text" class="form-control" id="data3"
+                            <input [(ngModel)]="heartbeat.data3" type="text" class="form-control" id="data3"
                                 placeholder="Entrez Data3">
                         </div>
                         <div class="form-group">
                             <label for="data4">Data4</label>
-                            <input [(ngModel)]="hearbeat.data4" type="text" class="form-control" id="data4"
+                            <input [(ngModel)]="heartbeat.data4" type="text" class="form-control" id="data4"
                                 placeholder="Entrez data4">
                         </div>
-                        <div class="form-group">
-                            <label for="date_prelevement">Date Prelevement</label>
-                            <input [(ngModel)]="hearbeat.date_prelevement" type="date" class="form-control"
-                                id="date_prelevement" placeholder="date prelevement ">
-                        </div>
-
                         <button (click)="persistHeartbeat()" class="btn btn-success btn-block m-3"><i
                                 class="fa fa-send">Add heartbeat</i>
                         </button>

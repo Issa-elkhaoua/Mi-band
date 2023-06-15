@@ -43,7 +43,7 @@ export class ClientsComponent {
 
   async deleteClient(id: any) {
     try {
-      await this.clientService.delete(id);
+      await this.clientService.delete(id).subscribe();
       this.resultClients = this.resultClients.filter(client => client.id !== id);
     } catch (error) {
       console.error(error);

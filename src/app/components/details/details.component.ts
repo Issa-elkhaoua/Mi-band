@@ -21,21 +21,22 @@ export class DetailsComponent {
     adresse: '',
     mail: ''
   }
-  hearbeat: Heartbeat = {
+
+  heartbeat: Heartbeat = {
     data1: 0,
     data2: 0,
     data3: 0,
     data4: 0,
     date_prelevement: ''
   };
-  hearbeats!: Heartbeat[];
-  showModal: Boolean = false;
+
+  heartbeats!: Heartbeat[];
+  showForm: Boolean = false;
   constructor(private route: ActivatedRoute, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-      console.log('ID:', this.id);
     });
     this.getClient(this.id)
     this.getHeartbeatsById(this.id)
@@ -44,26 +45,31 @@ export class DetailsComponent {
   async getClient(id: any) {
     try {
       this.client = await this.clientService.getById(id).toPromise() as Client;
-      console.log(this.client)
     } catch (error) {
       console.error(error);
     }
   }
 
   persistHeartbeat() {
-    this.hearbeat.mac = this.client.mac;
-    this.heartbeatService.persist(this.hearbeat).subscribe();
-    this.hearbeats.push(this.hearbeat);
-    this.displayModal(false);
+    this.heartbeat.mac = this.client.mac;
+
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().slice(0, 23).replace('T', ' ');
+    this.heartbeat.date_prelevement = formattedDate;
+
+    this.heartbeatService.persist(this.heartbeat).subscribe();
+    this.heartbeats.push(this.heartbeat);
+    this.displayForm(false);
   }
 
   getHeartbeatsById(id: any) {
-    this.heartbeatService.findAllById(id).subscribe(hearbeats => this.hearbeats = hearbeats);
-    console.log(this.hearbeats)
+    this.heartbeatService.findAllById(id).subscribe(heartbeats => {
+      this.heartbeats = heartbeats;
+    });
   }
 
-  displayModal(bool: any) {
-    this.showModal = bool;
+  displayForm(bool: any) {
+    this.showForm = bool;
   }
 
 }
