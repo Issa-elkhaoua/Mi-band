@@ -32,6 +32,12 @@ export class DetailsComponent {
 
   heartbeats!: Heartbeat[];
   showForm: Boolean = false;
+
+  isValidData1 = true;
+  isValidData2 = true;
+  isValidData3 = true;
+  isValidData4 = true;
+
   constructor(private route: ActivatedRoute, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
 
   ngOnInit() {
@@ -51,15 +57,22 @@ export class DetailsComponent {
   }
 
   persistHeartbeat() {
-    this.heartbeat.mac = this.client.mac;
+    this.isValidData1 = !isNaN(this.heartbeat.data1);
+    this.isValidData2 = !isNaN(this.heartbeat.data2);
+    this.isValidData3 = !isNaN(this.heartbeat.data3);
+    this.isValidData4 = !isNaN(this.heartbeat.data4);
+    
+    if (this.isValidData1 && this.isValidData2 && this.isValidData3 && this.isValidData4) {
 
+
+    this.heartbeat.mac = this.client.mac;
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().slice(0, 23).replace('T', ' ');
     this.heartbeat.date_prelevement = formattedDate;
-
     this.heartbeatService.persist(this.heartbeat).subscribe();
     this.heartbeats.push(this.heartbeat);
     this.displayForm(false);
+    }
   }
 
   getHeartbeatsById(id: any) {

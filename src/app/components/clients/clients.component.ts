@@ -24,6 +24,14 @@ export class ClientsComponent {
     mail: ''
   }
 
+  // Ajoutez ces propriétés pour les conditions de validation
+  isValidMac = true;
+  isValidEmail = true;
+  isValidTel = true;
+  isValidNom = true;
+  isValidPrenom = true;
+  isValidAddress = true;
+
   editMode: boolean = false;
 
   currentClientId!: number;
@@ -36,9 +44,10 @@ export class ClientsComponent {
   }
 
   getClient() {
-    this.clientService.findAll().subscribe(clients =>{
-      this.resultClients = this.clients = clients}
-      );
+    this.clientService.findAll().subscribe(clients => {
+      this.resultClients = this.clients = clients
+    }
+    );
   }
 
   async deleteClient(id: any) {
@@ -51,20 +60,30 @@ export class ClientsComponent {
   }
 
   persistClient() {
-    if (!this.editMode) {
 
+    // Vérification des conditions de validation
+    this.isValidMac = /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(this.myClient.mac);
+    this.isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.myClient.mail);
+    this.isValidTel = /^\d{10}$/.test(this.myClient.tel);
+    this.isValidNom = /^[A-Za-z]+$/.test(this.myClient.nom);
+    this.isValidPrenom = /^[A-Za-z]+$/.test(this.myClient.prenom);
+    this.isValidAddress = /^[a-zA-Z0-9\s,'-]*$/.test(this.myClient.adresse);
+
+    if (this.isValidMac && this.isValidEmail && this.isValidTel && this.isValidNom && this.isValidPrenom && this.isValidAddress) {
+      // Code de persistance du client
+
+      if (!this.editMode) {
         this.clientService.persist(this.myClient).subscribe();
         this.resultClients.push(this.myClient);
         this.btn = false;
         this.resetClient();
-    }
-
-    else {
+      }
+      else {
         this.clientService.update(this.currentClientId, this.myClient);
         this.btn = false;
-
+      }
     }
-}
+  }
 
   resetClient() {
     this.myClient = {
@@ -81,19 +100,19 @@ export class ClientsComponent {
   editClient(id: any) {
     this.currentClientId = id;
     let currentClient: Client | undefined = this.resultClients.find((c) => {
-        return c.id == id
+      return c.id == id
     });
     this.btn = true;
 
     if (currentClient != undefined) {
-        this.myClient = currentClient;
+      this.myClient = currentClient;
     }
 
     this.editMode = true;
 
-}
+  }
 
-  detailsClient(id: any){
+  detailsClient(id: any) {
     this.router.navigate(['/clients', id]);
   }
 
@@ -101,6 +120,15 @@ export class ClientsComponent {
   afficheForm() {
     if (this.btn) {
       this.btn = false;
+      this.myClient = {
+        mac: '',
+        nom: '',
+        prenom: '',
+        tel: '',
+        adresse: '',
+        mail: ''
+      }
+      this.editMode = false;
     } else {
       this.btn = true;
     }
@@ -108,5 +136,9 @@ export class ClientsComponent {
 
   searchClient() {
     this.resultClients = this.clients.filter((client) => client.nom.includes(this.SearchText))
+  }
+
+  cancelForm() {
+    this.btn = false;
   }
 }

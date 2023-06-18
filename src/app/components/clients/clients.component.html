@@ -8,7 +8,6 @@
         </button>
     </div>
 </div>
-
 <div *ngIf="btn">
     <div class="row mt-4">
         <div class="col-md-6 mx-auto">
@@ -18,34 +17,48 @@
                         <label for="mac">Adresse MAC:</label>
                         <input [(ngModel)]="myClient.mac" type="text" class="form-control" id="mac"
                             placeholder="Entrez l'adresse MAC">
+                        <!-- Affichage du message d'erreur si la condition n'est pas satisfaite -->
+                        <small *ngIf="!isValidMac" class="text-danger">Adresse MAC invalide.</small>
                     </div>
                     <div class="form-group">
                         <label for="nom">Nom:</label>
                         <input [(ngModel)]="myClient.nom" type="text" class="form-control" id="nom"
                             placeholder="Entrez le nom">
+                        <small *ngIf="!isValidNom" class="text-danger">Nom invalide.</small>
                     </div>
                     <div class="form-group">
                         <label for="prenom">Prénom:</label>
                         <input [(ngModel)]="myClient.prenom" type="text" class="form-control" id="prenom"
                             placeholder="Entrez le prénom">
+                            <small *ngIf="!isValidPrenom" class="text-danger">Prenom invalide.</small>
                     </div>
                     <div class="form-group">
                         <label for="tel">Téléphone:</label>
                         <input [(ngModel)]="myClient.tel" type="text" class="form-control" id="tel"
                             placeholder="Entrez le numéro de téléphone">
+                        <!-- Affichage du message d'erreur si la condition n'est pas satisfaite -->
+                        <small *ngIf="!isValidTel" class="text-danger">Numéro de téléphone invalide.</small>
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse:</label>
                         <input [(ngModel)]="myClient.adresse" type="text" class="form-control" id="adresse"
                             placeholder="Entrez l'adresse">
+                            <small *ngIf="!isValidAddress" class="text-danger">Adresse invalide.</small>
+
                     </div>
                     <div class="form-group">
                         <label for="mail">Email:</label>
                         <input [(ngModel)]="myClient.mail" type="email" class="form-control" id="mail"
                             placeholder="Entrez l'adresse email">
+                        <!-- Affichage du message d'erreur si la condition n'est pas satisfaite -->
+                        <small *ngIf="!isValidEmail" class="text-danger">Adresse email invalide.</small>
                     </div>
-                    <button (click)="persistClient()" class="btn btn-success btn-block m-3"><i class="fa fa-send"></i>
-                        {{editMode ? "Modifier client":"Nouveau client"}}</button>
+                    <button (click)="persistClient()" class="btn btn-success btn-block m-3">
+                        <i class="fa fa-send"></i> {{editMode ? "Modifier client" : "Nouveau client"}}
+                    </button>
+                    <button (click)="cancelForm()" class="btn btn-danger btn-block m-3">
+                        <i class="fa fa-times"></i> Annuler
+                    </button>
                 </div>
             </div>
         </div>

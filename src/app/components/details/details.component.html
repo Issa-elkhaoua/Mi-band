@@ -47,21 +47,25 @@
                             <label for="data1">Data1</label>
                             <input [(ngModel)]="heartbeat.data1" type="text" class="form-control" id="data1"
                                 placeholder="Entrez Data1">
+                            <small *ngIf="!isValidData1" class="text-danger">Data 1 invalide.</small>
                         </div>
                         <div class="form-group">
                             <label for="data2">Data2</label>
                             <input [(ngModel)]="heartbeat.data2" type="text" class="form-control" id="data2"
                                 placeholder="Entrez data2">
+                            <small *ngIf="!isValidData2" class="text-danger">Data 2 invalide.</small>
                         </div>
                         <div class="form-group">
                             <label for="data3">Data3</label>
                             <input [(ngModel)]="heartbeat.data3" type="text" class="form-control" id="data3"
                                 placeholder="Entrez Data3">
+                            <small *ngIf="!isValidData3" class="text-danger">Data 3 invalide.</small>
                         </div>
                         <div class="form-group">
                             <label for="data4">Data4</label>
                             <input [(ngModel)]="heartbeat.data4" type="text" class="form-control" id="data4"
                                 placeholder="Entrez data4">
+                            <small *ngIf="!isValidData4" class="text-danger">Data 4 invalide.</small>
                         </div>
                         <button (click)="persistHeartbeat()" class="btn btn-success btn-block m-3"><i
                                 class="fa fa-send">Add heartbeat</i>
