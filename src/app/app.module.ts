@@ -9,21 +9,35 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DetailsComponent } from './components/details/details.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { ChartModule } from 'angular-highcharts';
+import { GrapheComponent } from './components/graphe/graphe.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ClientsComponent,
-    DetailsComponent
+    DetailsComponent,
+    LoginComponent,
+    GrapheComponent,
+   
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartModule 
+    
   ],
-  providers: [],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

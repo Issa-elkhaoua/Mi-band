@@ -1,6 +1,6 @@
 <div class="row m-4">
     <div class="col-md-6">
-        <h3>List of clients</h3>
+        <h3 style="color: rgb(49, 49, 77);">List of clients</h3>
     </div>
     <div class="col-md-6 text-right d-flex justify-content-end">
         <button class="btn btn-dark btn-sm" (click)="afficheForm()">
@@ -59,7 +59,7 @@
             <div class="card-body">
                 <input (keyup)="searchClient()" [(ngModel)]="SearchText" placeholder="Recherche..." type="text" class="form-control mt-3 mb-3">
                 <ul class="list-group">
-                    <li *ngFor="let client of resultClients"
+                    <li *ngFor="let client of resultClients" 
                         class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
                             <i class="fas fa-user fa-lg mr-2 ml-2"></i>

@@ -2,10 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DetailsComponent } from './components/details/details.component';
 import { ClientsComponent } from './components/clients/clients.component';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './auth.guard';
+import { GrapheComponent } from './components/graphe/graphe.component';
 
 const routes: Routes = [
-  { path: '', component: ClientsComponent },
-  { path: 'clients/:id', component: DetailsComponent },
+  { path: 'main', component: ClientsComponent  },
+  { path: 'clients/:id', component: DetailsComponent  },
+  { path: 'login', component: LoginComponent },
+  {path: 'dashbord', component: GrapheComponent,canActivate: [AuthGuard]},
+  
+ 
 ];
 
 @NgModule({
