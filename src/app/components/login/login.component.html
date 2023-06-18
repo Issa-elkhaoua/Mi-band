@@ -63,7 +63,7 @@
         <form action="#">
             <div class="input-boxes">
               <div class="input-box">
-                <i class="fas fa-user"></i>
+               
                 <input type="text" name="usernamme" placeholder="Enter your name" required [(ngModel)]="signupObj.username" ngModel name="usernam" #usernam="ngModel"  required maxlength="5">
               </div>
               <div  style="padding: 3%; ;" class="alert alert-danger" *ngIf="usernam.touched && !usernam.valid">
@@ -81,7 +81,7 @@
                 
               </div>
               <div class="input-box">
-                <i class="fas fa-lock"></i>
+          
                 <input type="password" name="passwordd" placeholder="Enter your password" required [(ngModel)]="signupObj.password" ngModel name="pass" #pass="ngModel" required maxlength="5" >
               </div>
               <div  style="padding: 3%; ;" class="alert alert-danger" *ngIf="pass.touched && !pass.valid">
