@@ -11,8 +11,6 @@ const routes: Routes = [
   { path: 'clients/:id', component: DetailsComponent  },
   { path: 'login', component: LoginComponent },
   {path: 'dashbord', component: GrapheComponent,canActivate: [AuthGuard]},
-  
- 
 ];
 
 @NgModule({
