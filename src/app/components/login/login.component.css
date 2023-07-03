@@ -6,7 +6,7 @@
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
-body{
+.body{
   min-height: 692px;
   display: flex;
   align-items: center;

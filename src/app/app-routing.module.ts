@@ -9,8 +9,8 @@ import { GrapheComponent } from './components/graphe/graphe.component';
 const routes: Routes = [
   { path: 'main', component: ClientsComponent  },
   { path: 'clients/:id', component: DetailsComponent  },
-  { path: 'login', component: LoginComponent },
-  {path: 'dashbord', component: GrapheComponent,canActivate: [AuthGuard]},
+  { path: '', component: LoginComponent },
+  {path: 'dashbord', component: GrapheComponent},
 ];
 
 @NgModule({

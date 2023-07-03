@@ -7,7 +7,7 @@ import { Client } from '../models/client';
 })
 export class ClientService {
 
-  apiUrl = "http://181.215.68.171:8080/mibandbackend";
+  apiUrl = "http://154.49.137.28:8080";
 
   constructor(private http: HttpClient) {  }
 
