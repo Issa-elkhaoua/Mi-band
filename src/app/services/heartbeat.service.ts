@@ -6,7 +6,7 @@ import { Heartbeat } from '../models/heartbeat';
   providedIn: 'root'
 })
 export class HeartbeatService {
-  apiUrl = "http://181.215.68.171:8080/mibandbackend";
+  apiUrl = "http://154.49.137.28:8080";
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +16,6 @@ export class HeartbeatService {
   }
 
   findAllById(id: any) {
-    return this.http.get<Heartbeat[]>(`${this.apiUrl}/getHeartbeatsByClient/${id}`);
+    return this.http.get<Heartbeat[]>(`${this.apiUrl}/getHeartbeatsByClient/${id}?pageNo=0&pageSize=5`);
   }
 }

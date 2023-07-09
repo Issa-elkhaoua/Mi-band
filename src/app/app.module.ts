@@ -12,7 +12,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { ChartModule } from 'angular-highcharts';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts'; 
 import { GrapheComponent } from './components/graphe/graphe.component';
 
 
@@ -34,8 +34,7 @@ import { GrapheComponent } from './components/graphe/graphe.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ChartModule 
-    
+    CanvasJSAngularChartsModule
   ],
   providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]

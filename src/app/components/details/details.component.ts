@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { isNumber } from 'highcharts';
 import { Client } from 'src/app/models/client';
 import { Heartbeat } from 'src/app/models/heartbeat';
 import { ClientService } from 'src/app/services/client.service';
@@ -12,6 +13,7 @@ import { HeartbeatService } from 'src/app/services/heartbeat.service';
 })
 
 export class DetailsComponent {
+
   id!: string | null;
   client: Client = {
     mac: '',
@@ -30,6 +32,18 @@ export class DetailsComponent {
     date_prelevement: ''
   };
 
+
+  chartOptions = {
+    title: {
+    	text: ""
+    },
+    data: [{
+      type: "line",
+      dataPoints: []
+    }]                
+  };
+
+
   heartbeats!: Heartbeat[];
   showForm: Boolean = false;
 
@@ -40,17 +54,20 @@ export class DetailsComponent {
 
   constructor(private route: ActivatedRoute, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     });
-    this.getClient(this.id)
-    this.getHeartbeatsById(this.id)
+    await this.getHeartbeatsById(this.id); 
+    await this.getClient(this.id)
+    
+    
   }
 
   async getClient(id: any) {
     try {
       this.client = await this.clientService.getById(id).toPromise() as Client;
+      this.chargerGraphe(); 
     } catch (error) {
       console.error(error);
     }
@@ -72,17 +89,51 @@ export class DetailsComponent {
     this.heartbeatService.persist(this.heartbeat).subscribe();
     this.heartbeats.push(this.heartbeat);
     this.displayForm(false);
+    this.chargerGraphe(); 
     }
   }
 
-  getHeartbeatsById(id: any) {
-    this.heartbeatService.findAllById(id).subscribe(heartbeats => {
-      this.heartbeats = heartbeats;
-    });
-  }
+
+getHeartbeatsById(id: any): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    this.heartbeatService.findAllById(id).subscribe(
+      heartbeats => {
+        this.heartbeats = heartbeats;
+        resolve(); // Résoudre la Promise lorsque les données sont récupérées
+      },
+      error => {
+        reject(error); // Rejeter la Promise en cas d'erreur
+      }
+    );
+  });
+}
 
   displayForm(bool: any) {
     this.showForm = bool;
+  }
+
+  chargerGraphe() {
+    if (this.heartbeats && this.heartbeats.length !== 0) { // Ajoutez cette vérification
+      const chartData: any = {
+        title: {
+          text: this.client.nom + ' ' + this.client.prenom
+        },
+        data: [{
+          type: 'line',
+          dataPoints: [] as any[]
+        }]
+      };
+  
+      console.log(this.heartbeats.length);
+      this.heartbeats.forEach(h => {
+        chartData.data[0].dataPoints.push({
+          label: h.date_prelevement,
+          y: (Number(h.data1) + Number(h.data2) + Number(h.data3) + Number(h.data4)) / 4
+        });
+      });
+  
+      this.chartOptions = chartData;
+    }
   }
 
 }
