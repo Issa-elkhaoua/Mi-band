@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { isNumber } from 'highcharts';
+import { AuthService } from 'src/app/auth.service';
 import { Client } from 'src/app/models/client';
 import { Heartbeat } from 'src/app/models/heartbeat';
 import { ClientService } from 'src/app/services/client.service';
@@ -15,6 +16,7 @@ import { HeartbeatService } from 'src/app/services/heartbeat.service';
 export class DetailsComponent {
 
   id!: string | null;
+  ajoutBouttons!:boolean;
   client: Client = {
     mac: '',
     nom: '',
@@ -52,9 +54,10 @@ export class DetailsComponent {
   isValidData3 = true;
   isValidData4 = true;
 
-  constructor(private route: ActivatedRoute, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
+  constructor(private route: ActivatedRoute,private authService: AuthService, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
 
   async ngOnInit() {
+    this.ajout();
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
     });
@@ -136,4 +139,8 @@ getHeartbeatsById(id: any): Promise<void> {
     }
   }
 
+  ajout(){
+    console.log("oo",this.authService.admin);
+      this.ajoutBouttons = this.authService.admin
+    }
 }

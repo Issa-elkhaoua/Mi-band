@@ -30,13 +30,16 @@ export class LoginComponent implements OnInit {
 
   onLogin(mac: any) {
     if (mac === 'admin') {
+      this.authService.admin = true;
       this.router.navigate(['/dashbord']);
     } else {
       const client = this.clients.find((c) => c.mac === mac);
       if (client) {
         const id = client.id;
         this.authService.isLoggedIn = true;
+        this.authService.admin = false;
         this.router.navigate(['/clients', id]);
+
       } else {
         console.log("Le client avec la MAC spécifiée n'a pas été trouvé");
       }

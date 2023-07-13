@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Client Details</h1>
-    <div class="text-right d-flex justify-content-end">
+    <div *ngIf="!ajoutBouttons" class="text-right d-flex justify-content-end">
         <button class="btn btn-dark btn-sm" (click)="displayForm(true)">
             <i class="fa fa-plus"></i>New HeartBeat
         </button>

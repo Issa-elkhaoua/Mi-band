@@ -7,7 +7,7 @@ import { Client } from '../models/client';
 })
 export class ClientService {
 
-  apiUrl = "http://154.49.137.28:8080";
+  apiUrl = "http://16.171.143.229:8080";
 
   constructor(private http: HttpClient) {  }
 
