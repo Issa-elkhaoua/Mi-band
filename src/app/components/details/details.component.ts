@@ -105,7 +105,7 @@ getHeartbeatsById(id: any): Promise<void> {
         resolve(); // Résoudre la Promise lorsque les données sont récupérées
       },
       error => {
-        reject(error); // Rejeter la Promise en cas d'erreur
+        reject(error);
       }
     );
   });
