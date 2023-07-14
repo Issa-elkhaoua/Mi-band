@@ -34,7 +34,6 @@ export class DetailsComponent {
     date_prelevement: ''
   };
 
-
   chartOptions = {
     title: {
     	text: ""
@@ -93,6 +92,8 @@ export class DetailsComponent {
     this.heartbeats.push(this.heartbeat);
     this.displayForm(false);
     this.chargerGraphe(); 
+    // Refresh the page
+    location.reload();
     }
   }
 

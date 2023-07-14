@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Chart} from 'angular-highcharts';
 
 
@@ -7,38 +7,29 @@ import { Chart} from 'angular-highcharts';
   templateUrl: './graphe.component.html',
   styleUrls: ['./graphe.component.css']
 })
-export class GrapheComponent {
-  lineChart = new Chart({
-    chart:{
-      type:'line'
-    },
-    title:{
-      text: " HeartBeats"
+export class GrapheComponent implements OnInit {
+  debug: boolean = false;
+  cursorGrabbed: boolean = false;
+  gameOver: boolean = false;
 
-    },
-    credits:{
-      enabled : false
-    },
-     series: [{
-      name: 'heartbeats',
-      data: [10, 2, 6, 5, 8, 7]
-    } as any
-  ]
-  });
-  pieChart = new Chart({
-    chart: {
-      type: 'pie' // Modifier le type de graphique en 'pie' pour un Pie Chart
-    },
-    title: {
-      text: 'HeartBeats'
-    },
-    credits: {
-      enabled: false
-    },
-    series: [{
-      name: 'heartbeats',
-      data: [10, 2, 6, 5, 8, 7]
-    } as any]
-  });
+  ngOnInit() {}
+
+  handleToggleDebug() {
+    this.debug = !this.debug;
+  }
+
+  handleCursorGrabbed() {
+    this.cursorGrabbed = true;
+    setTimeout(() => {
+      this.cursorGrabbed = false;
+    }, 2000);
+  }
+
+  handleButtonClicked() {
+    this.gameOver = true;
+    setTimeout(() => {
+      this.gameOver = false;
+    }, 4000);
+  }
   
 }

@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts'; 
 import { GrapheComponent } from './components/graphe/graphe.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 
@@ -26,6 +27,7 @@ import { GrapheComponent } from './components/graphe/graphe.component';
     DetailsComponent,
     LoginComponent,
     GrapheComponent,
+    AboutComponent,
    
    
   ],
