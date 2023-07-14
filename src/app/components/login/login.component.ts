@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
     if (mac === 'admin') {
       this.authService.admin = true;
       this.router.navigate(['/dashbord']);
+    } else if (mac === '') {
+      alert("L'adresse MAC est REQUIRED!");
     } else {
       const client = this.clients.find((c) => c.mac === mac);
       if (client) {
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/clients', id]);
 
       } else {
-        console.log("Le client avec la MAC spécifiée n'a pas été trouvé");
+        alert("Le client avec la MAC spécifiée n'a pas été trouvé");
       }
     }
   }
