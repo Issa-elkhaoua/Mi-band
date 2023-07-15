@@ -128,7 +128,7 @@ export class ClientsComponent {
 
   detailsClient(id: any) {
     // Afficher les détails du client avec l'ID spécifié
-    this.router.navigate(['/clients', id]);
+    this.router.navigate(['/clients', id,"1"]);
   }
 
 

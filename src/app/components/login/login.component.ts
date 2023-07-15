@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         const id = client.id;
         this.authService.isLoggedIn = true;
         this.authService.admin = false;
-        this.router.navigate(['/clients', id]);
+        this.router.navigate(['/clients', id,"0"]);
 
       } else {
         alert("Le client avec la MAC spécifiée n'a pas été trouvé");

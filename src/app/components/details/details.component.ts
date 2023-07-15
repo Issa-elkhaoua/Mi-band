@@ -16,7 +16,7 @@ import { HeartbeatService } from 'src/app/services/heartbeat.service';
 export class DetailsComponent {
 
   id!: string | null;
-  ajoutBouttons!:boolean;
+  ajoutBouttons!: boolean ;
   client: Client = {
     mac: '',
     nom: '',
@@ -36,12 +36,12 @@ export class DetailsComponent {
 
   chartOptions = {
     title: {
-    	text: ""
+      text: ""
     },
     data: [{
       type: "line",
       dataPoints: []
-    }]                
+    }]
   };
 
 
@@ -52,24 +52,25 @@ export class DetailsComponent {
   isValidData2 = true;
   isValidData3 = true;
   isValidData4 = true;
-
-  constructor(private route: ActivatedRoute,private authService: AuthService, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
+  admin!: string | null;
+  constructor(private route: ActivatedRoute, private authService: AuthService, private clientService: ClientService, private heartbeatService: HeartbeatService) { }
 
   async ngOnInit() {
-    this.ajout();
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
+      this.admin = params.get('admin');
     });
-    await this.getHeartbeatsById(this.id); 
+    this.ajout();
+    await this.getHeartbeatsById(this.id);
     await this.getClient(this.id)
-    
-    
+
+
   }
 
   async getClient(id: any) {
     try {
       this.client = await this.clientService.getById(id).toPromise() as Client;
-      this.chargerGraphe(); 
+      this.chargerGraphe();
     } catch (error) {
       console.error(error);
     }
@@ -80,37 +81,37 @@ export class DetailsComponent {
     this.isValidData2 = !isNaN(this.heartbeat.data2);
     this.isValidData3 = !isNaN(this.heartbeat.data3);
     this.isValidData4 = !isNaN(this.heartbeat.data4);
-    
+
     if (this.isValidData1 && this.isValidData2 && this.isValidData3 && this.isValidData4) {
 
 
-    this.heartbeat.mac = this.client.mac;
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString().slice(0, 23).replace('T', ' ');
-    this.heartbeat.date_prelevement = formattedDate;
-    this.heartbeatService.persist(this.heartbeat).subscribe();
-    this.heartbeats.push(this.heartbeat);
-    this.displayForm(false);
-    this.chargerGraphe(); 
-    // Refresh the page
-    location.reload();
+      this.heartbeat.mac = this.client.mac;
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().slice(0, 23).replace('T', ' ');
+      this.heartbeat.date_prelevement = formattedDate;
+      this.heartbeatService.persist(this.heartbeat).subscribe();
+      this.heartbeats.push(this.heartbeat);
+      this.displayForm(false);
+      this.chargerGraphe();
+      // Refresh the page
+      location.reload();
     }
   }
 
 
-getHeartbeatsById(id: any): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    this.heartbeatService.findAllById(id).subscribe(
-      heartbeats => {
-        this.heartbeats = heartbeats;
-        resolve(); // Résoudre la Promise lorsque les données sont récupérées
-      },
-      error => {
-        reject(error);
-      }
-    );
-  });
-}
+  getHeartbeatsById(id: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.heartbeatService.findAllById(id).subscribe(
+        heartbeats => {
+          this.heartbeats = heartbeats;
+          resolve(); // Résoudre la Promise lorsque les données sont récupérées
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
+  }
 
   displayForm(bool: any) {
     this.showForm = bool;
@@ -127,7 +128,7 @@ getHeartbeatsById(id: any): Promise<void> {
           dataPoints: [] as any[]
         }]
       };
-  
+
       console.log(this.heartbeats.length);
       this.heartbeats.forEach(h => {
         chartData.data[0].dataPoints.push({
@@ -135,13 +136,16 @@ getHeartbeatsById(id: any): Promise<void> {
           y: (Number(h.data1) + Number(h.data2) + Number(h.data3) + Number(h.data4)) / 4
         });
       });
-  
+
       this.chartOptions = chartData;
     }
   }
 
-  ajout(){
-    console.log("oo",this.authService.admin);
-      this.ajoutBouttons = this.authService.admin
+  ajout() {
+    if (this.admin == "1") {
+      this.ajoutBouttons = true;
+    }else{
+      this.ajoutBouttons = false;
     }
+  }
 }
